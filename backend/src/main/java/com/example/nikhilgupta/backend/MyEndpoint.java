@@ -19,17 +19,16 @@ import com.example.Jokes;
         version = "v1",
         namespace = @ApiNamespace(
                 ownerDomain = "backend.nikhilgupta.example.com",
-                ownerName = "backend.nikhilgupta.example.com",
-                packagePath = ""
+                ownerName = "backend.nikhilgupta.example.com"
         )
 )
 public class MyEndpoint {
 
     /**
-     * A simple endpoint method that takes a name and says Hi back
+     * A simple endpoint method that tells a joke
      */
-    @ApiMethod(name = "sayHi")
-    public MyBean sayHi() {
+    @ApiMethod(name = "tellJoke")
+    public MyBean tellJoke() {
         MyBean response = new MyBean();
         response.setData(Jokes.getJoke());
 

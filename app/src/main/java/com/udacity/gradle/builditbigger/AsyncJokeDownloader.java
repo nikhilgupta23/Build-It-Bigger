@@ -36,7 +36,7 @@ public class AsyncJokeDownloader {
             if(myApiService == null) {  // Only do this once
                 //Insert IP address of the host machine of the network below.
                 MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
-                        .setRootUrl("http://192.168.0.2:8080/_ah/api/")
+                        .setRootUrl("http://192.168.43.250:8080/_ah/api/")
                         .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                             @Override
                             public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
@@ -48,7 +48,7 @@ public class AsyncJokeDownloader {
             }
 
             try {
-                return myApiService.sayHi().execute().getData();
+                return myApiService.tellJoke().execute().getData();
             } catch (IOException e) {
                 return e.getMessage();
             }

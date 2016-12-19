@@ -1,4 +1,4 @@
-package com.udacity.gradle.builditbigger;
+package com.udacity.gradle.builditbigger.free;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,18 +9,44 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.example.nikhilgupta.jokesactivitylibrary.JokesActivity;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.udacity.gradle.builditbigger.AsyncJokeDownloader;
+import com.udacity.gradle.builditbigger.IDownloadListener;
+import com.udacity.gradle.builditbigger.R;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    InterstitialAd mInterstitialAd;
     ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
+            }
+        });
+
+        requestNewInterstitial();
     }
 
+
+    private void requestNewInterstitial() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        mInterstitialAd.loadAd(adRequest);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -46,10 +72,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void tellJoke(View view) {
         progressBar = (ProgressBar) findViewById(R.id.progressBar1);
-        progressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        }
         new AsyncJokeDownloader(new IDownloadListener() {
             @Override
             public void downloadCompleted(String j) {
+                progressBar.setVisibility(View.GONE);
                 Intent in = new Intent(getApplicationContext(), JokesActivity.class);
                 in.putExtra("Joke", j);
                 startActivity(in);

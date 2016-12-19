@@ -17,14 +17,14 @@ import java.io.IOException;
  */
 
 public class AsyncJokeDownloader {
-    private IDownloadListener downloadListener;
+    public IDownloadListener downloadListener;
     private static MyApi myApiService = null;
-    protected AsyncJokeDownloader( IDownloadListener downloadListener )
+    public AsyncJokeDownloader( IDownloadListener downloadListener )
     {
         this.downloadListener = downloadListener;
     }
 
-    protected void downloadJoke()
+    public void downloadJoke()
     {
         new EndpointsAsyncTask().execute();
     }
@@ -59,8 +59,4 @@ public class AsyncJokeDownloader {
             downloadListener.downloadCompleted(result);
         }
     }
-}
-
-interface IDownloadListener {
-    void downloadCompleted(String j);
 }

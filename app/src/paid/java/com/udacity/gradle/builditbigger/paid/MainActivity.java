@@ -13,7 +13,6 @@ import com.udacity.gradle.builditbigger.AsyncJokeDownloader;
 import com.udacity.gradle.builditbigger.IDownloadListener;
 import com.udacity.gradle.builditbigger.R;
 
-
 public class MainActivity extends AppCompatActivity {
 
     ProgressBar progressBar;
@@ -23,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,6 +57,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(in);
             }
         }).downloadJoke();
-
     }
 }

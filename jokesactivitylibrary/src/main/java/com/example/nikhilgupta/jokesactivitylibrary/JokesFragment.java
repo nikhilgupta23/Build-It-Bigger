@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 public class JokesFragment extends Fragment {
 
     public JokesFragment() {

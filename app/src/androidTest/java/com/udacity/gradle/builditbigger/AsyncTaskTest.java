@@ -1,4 +1,5 @@
 package com.udacity.gradle.builditbigger;
+
 import android.test.AndroidTestCase;
 import android.test.UiThreadTest;
 
@@ -8,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class AsyncTaskTest extends AndroidTestCase implements IDownloadListener {
     AsyncJokeDownloader downloader;
     CountDownLatch signal;
-    String joke ="";
+    String joke;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -18,11 +19,10 @@ public class AsyncTaskTest extends AndroidTestCase implements IDownloadListener 
     }
 
     @UiThreadTest
-    public void testDownload() throws InterruptedException
-    {
+    public void testDownload() throws InterruptedException {
         downloader.downloadJoke();
         signal.await(10, TimeUnit.SECONDS);
-        assertTrue("Valid joke is returned", joke !=null);
+        assertTrue("Valid joke is returned", joke != null);
     }
 
     @Override
@@ -30,6 +30,4 @@ public class AsyncTaskTest extends AndroidTestCase implements IDownloadListener 
         joke = j;
         signal.countDown();
     }
-
-
 }
